@@ -1,10 +1,20 @@
+import prisma from "../../../lib/prisma";
+
 interface PagePropsInterface {
   params: {
     codeId: string;
   };
 }
 
-export default function Page({ params }: PagePropsInterface) {
+async function getData(id: string) {
+  const feed = await prisma.qrCode.findMany({ where: { id: id } });
+  return feed;
+}
+
+export default async function Page({ params }: PagePropsInterface) {
   console.log(params.codeId);
-  return <h1>hello</h1>;
+  const data = await getData(params.codeId);
+  console.log(data);
+
+  return <h1>{`Winner: ${data[0].winner}`}</h1>;
 }
