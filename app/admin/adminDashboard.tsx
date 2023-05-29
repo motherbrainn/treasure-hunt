@@ -1,6 +1,7 @@
 "use client";
 import { Button, TextField } from "@mui/material";
 import { useState } from "react";
+import QrCodeView from "./QrCodeView";
 
 export const AdminDashboard = () => {
   const [password, setPassword] = useState<string>("");
@@ -35,9 +36,16 @@ export const AdminDashboard = () => {
       }}
     >
       {userAuthenticated ? (
-        <div>authenticated</div>
+        <QrCodeView />
       ) : (
-        <div>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "10px",
+          }}
+        >
           <TextField
             required={true}
             id="outlined-controlled"

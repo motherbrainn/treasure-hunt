@@ -1,7 +1,5 @@
-import AdminDashboard from "./adminDashboard";
+import AdminDashboard from "./AdminDashboard";
 
-export const Admin = () => {
+export default function Admin() {
   return <AdminDashboard />;
-};
-
-export default Admin;
+}
