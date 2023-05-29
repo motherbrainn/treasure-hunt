@@ -35,8 +35,9 @@ export const AdminDashboard = () => {
         alignItems: "center",
       }}
     >
+      <QrCodeView />
       {userAuthenticated ? (
-        <QrCodeView />
+        <div />
       ) : (
         <div
           style={{
