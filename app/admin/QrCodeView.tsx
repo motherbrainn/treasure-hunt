@@ -11,7 +11,9 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
-import QRCode from "react-qr-code";
+
+import { jsPDF } from "jspdf";
+import { QRCode } from "react-qrcode-logo";
 
 async function fetchQrCodes(): Promise<any> {
   const response = await fetch("/api/qrCode").then((res) => res.json());
@@ -33,7 +35,7 @@ const createQrCodeUrl = (id: string) => {
 
 export const QrCodeView = () => {
   const [qrCodeData, setQrCodeData] = useState<QrCodeInterface[] | []>([]);
-  const [qrCodes, setQrCodes] = useState<null | JSX.Element[]>(null);
+  const [qrCodes, setQrCodes] = useState<JSX.Element[]>([]);
 
   useEffect(() => {
     (async () => setQrCodeData(await fetchQrCodes()))();
@@ -47,13 +49,17 @@ export const QrCodeView = () => {
 
   const handleClick = (qrCodeIds: string[]) => {
     const renderedQrCodes = qrCodeIds.map((id) => (
-      <QRCode
-        size={256}
-        style={{ height: "auto", maxWidth: "400px", width: "400px" }}
-        value={createQrCodeUrl(id)}
-        viewBox={`0 0 256 256`}
+      <div
         key={id}
-      />
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <div>Scan for a Chance to Win!</div>
+        <QRCode value={createQrCodeUrl(id)} size={150} />
+      </div>
     ));
     setQrCodes(renderedQrCodes);
   };
@@ -67,7 +73,6 @@ export const QrCodeView = () => {
     } else {
       newChecked.splice(currentIndex, 1);
     }
-    console.log(newChecked);
     setChecked(newChecked);
   };
 
@@ -109,6 +114,28 @@ export const QrCodeView = () => {
     );
   };
 
+  const handlePdf = () => {
+    const doc = new jsPDF("p", "pt", "a4");
+    const element = document.getElementById("hello");
+
+    element &&
+      doc.html(element, {
+        callback: function (doc) {
+          doc.save();
+        },
+        x: 200,
+        y: 10,
+        windowWidth: 20,
+      });
+  };
+
+  useEffect(() => {
+    if (qrCodes.length > 0) {
+      handlePdf();
+      setQrCodes([]);
+    }
+  }, [qrCodes]);
+
   return (
     <div
       style={{
@@ -125,8 +152,10 @@ export const QrCodeView = () => {
       <Button variant="contained" onClick={() => handleClick(checked)}>
         Generate QR Codes
       </Button>
-      {qrCodes && (
+      <button onClick={handlePdf}>pdf</button>
+      {qrCodes.length > 0 && (
         <div
+          id="hello"
           style={{
             display: "flex",
             flexDirection: "column",

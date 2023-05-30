@@ -19,10 +19,11 @@
     "@types/react-dom": "18.2.4",
     "eslint": "8.41.0",
     "eslint-config-next": "13.4.3",
+    "jspdf": "^2.5.1",
     "next": "13.4.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-qr-code": "^2.0.11",
+    "react-qrcode-logo": "^2.9.0",
     "typescript": "5.0.4"
   },
   "devDependencies": {
