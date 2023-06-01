@@ -36,6 +36,7 @@ const createQrCodeUrl = (id: string) => {
 export const QrCodeView = () => {
   const [qrCodeData, setQrCodeData] = useState<QrCodeInterface[] | []>([]);
   const [qrCodes, setQrCodes] = useState<JSX.Element[]>([]);
+  const [checked, setChecked] = useState<string[]>([]);
 
   useEffect(() => {
     (async () => setQrCodeData(await fetchQrCodes()))();
@@ -44,8 +45,6 @@ export const QrCodeView = () => {
   interface QrCodeListItemInterface {
     qrCode: QrCodeInterface;
   }
-
-  const [checked, setChecked] = useState<string[]>([]);
 
   const handleClick = (qrCodeIds: string[]) => {
     const renderedQrCodes = qrCodeIds.map((id) => (
@@ -74,6 +73,15 @@ export const QrCodeView = () => {
       newChecked.splice(currentIndex, 1);
     }
     setChecked(newChecked);
+  };
+
+  const handleSelectAll = () => {
+    if (checked.length > 0) {
+      setChecked([]);
+    } else {
+      const allSelected = qrCodeData.map((e) => e.id);
+      setChecked(allSelected);
+    }
   };
 
   const QrCodeListItem = (qrCodeItem: QrCodeListItemInterface) => {
@@ -149,10 +157,11 @@ export const QrCodeView = () => {
         {qrCodeData &&
           qrCodeData.map((e) => <QrCodeListItem qrCode={e} key={e.id} />)}
       </List>
+      <Button onClick={handleSelectAll}>Select All</Button>
       <Button variant="contained" onClick={() => handleClick(checked)}>
         Generate QR Codes
       </Button>
-      <button onClick={handlePdf}>pdf</button>
+
       {qrCodes.length > 0 && (
         <div
           id="hello"
