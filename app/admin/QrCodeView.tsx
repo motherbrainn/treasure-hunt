@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, useEffect, useState } from "react";
+import { Dispatch, Fragment, SetStateAction, useEffect, useState } from "react";
 import {
   Avatar,
   Button,
@@ -33,14 +33,22 @@ const createQrCodeUrl = (id: string) => {
   return `${vercelUrl}/QrCode/${id}`;
 };
 
-export const QrCodeView = () => {
+interface QrCodeViewInterface {
+  refetch: boolean;
+  setRefetch: Dispatch<SetStateAction<boolean>>;
+}
+
+export const QrCodeView = ({ refetch, setRefetch }: QrCodeViewInterface) => {
   const [qrCodeData, setQrCodeData] = useState<QrCodeInterface[] | []>([]);
   const [qrCodes, setQrCodes] = useState<JSX.Element[]>([]);
   const [checked, setChecked] = useState<string[]>([]);
 
   useEffect(() => {
-    (async () => setQrCodeData(await fetchQrCodes()))();
-  }, []);
+    if (refetch) {
+      (async () => setQrCodeData(await fetchQrCodes()))();
+      setRefetch(false);
+    }
+  }, [refetch]);
 
   interface QrCodeListItemInterface {
     qrCode: QrCodeInterface;

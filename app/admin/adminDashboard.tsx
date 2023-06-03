@@ -27,6 +27,13 @@ export const AdminDashboard = () => {
     setUserAuthenticated(await authenticateUser(password));
   };
 
+  const handleNewWinner = async () => {
+    const response = await fetch("/api/selectNewWinner");
+    setRefetchQrData(true);
+  };
+
+  const [refetchQrData, setRefetchQrData] = useState(true);
+
   return (
     <div
       style={{
@@ -35,7 +42,7 @@ export const AdminDashboard = () => {
         alignItems: "center",
       }}
     >
-      <QrCodeView />
+      <QrCodeView refetch={refetchQrData} setRefetch={setRefetchQrData} />
       {userAuthenticated ? (
         <div />
       ) : (
@@ -73,6 +80,9 @@ export const AdminDashboard = () => {
               disabled={errorStatus}
             >
               Submit
+            </Button>
+            <Button variant="contained" onClick={handleNewWinner}>
+              Select New Winner
             </Button>
           </div>
         </div>
