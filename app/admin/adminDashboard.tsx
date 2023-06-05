@@ -32,7 +32,25 @@ export const AdminDashboard = () => {
     setRefetchQrData(true);
   };
 
+  const handleAddAdditionalQrCode = async (count: number) => {
+    const response = await fetch("/api/createNewQrCode", {
+      method: "POST",
+      body: JSON.stringify({ countOfQrCodes: count }),
+    });
+    setRefetchQrData(true);
+  };
+
+  const handleDeleteSelected = async (selected: string[]) => {
+    const response = await fetch("/api/deleteQrCode", {
+      method: "POST",
+      body: JSON.stringify({ selectedQrCodes: selected }),
+    });
+    setRefetchQrData(true);
+  };
+
   const [refetchQrData, setRefetchQrData] = useState(true);
+  const [numberOfQrCodes, setNumberOfQrCodes] = useState(0);
+  const [checked, setChecked] = useState<string[]>([]);
 
   return (
     <div
@@ -42,7 +60,12 @@ export const AdminDashboard = () => {
         alignItems: "center",
       }}
     >
-      <QrCodeView refetch={refetchQrData} setRefetch={setRefetchQrData} />
+      <QrCodeView
+        refetch={refetchQrData}
+        setRefetch={setRefetchQrData}
+        checked={checked}
+        setChecked={setChecked}
+      />
       {userAuthenticated ? (
         <div />
       ) : (
@@ -83,6 +106,25 @@ export const AdminDashboard = () => {
             </Button>
             <Button variant="contained" onClick={handleNewWinner}>
               Select New Winner
+            </Button>
+            <TextField
+              type="number"
+              inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+              onChange={(e) => setNumberOfQrCodes(parseInt(e.target.value))}
+            >
+              {numberOfQrCodes}
+            </TextField>
+            <Button
+              variant="contained"
+              onClick={() => handleAddAdditionalQrCode(numberOfQrCodes)}
+            >
+              Add Additional
+            </Button>
+            <Button
+              variant="contained"
+              onClick={() => handleDeleteSelected(checked)}
+            >
+              Delete Selected
             </Button>
           </div>
         </div>

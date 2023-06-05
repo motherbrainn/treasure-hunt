@@ -36,12 +36,18 @@ const createQrCodeUrl = (id: string) => {
 interface QrCodeViewInterface {
   refetch: boolean;
   setRefetch: Dispatch<SetStateAction<boolean>>;
+  checked: string[];
+  setChecked: Dispatch<SetStateAction<string[]>>;
 }
 
-export const QrCodeView = ({ refetch, setRefetch }: QrCodeViewInterface) => {
+export const QrCodeView = ({
+  refetch,
+  setRefetch,
+  checked,
+  setChecked,
+}: QrCodeViewInterface) => {
   const [qrCodeData, setQrCodeData] = useState<QrCodeInterface[] | []>([]);
   const [qrCodes, setQrCodes] = useState<JSX.Element[]>([]);
-  const [checked, setChecked] = useState<string[]>([]);
 
   useEffect(() => {
     if (refetch) {
