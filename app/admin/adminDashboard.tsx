@@ -60,14 +60,58 @@ export const AdminDashboard = () => {
         alignItems: "center",
       }}
     >
-      <QrCodeView
-        refetch={refetchQrData}
-        setRefetch={setRefetchQrData}
-        checked={checked}
-        setChecked={setChecked}
-      />
+      <h1>QR Code Admin Dashboard</h1>
       {userAuthenticated ? (
-        <div />
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "10px",
+          }}
+        >
+          <QrCodeView
+            refetch={refetchQrData}
+            setRefetch={setRefetchQrData}
+            checked={checked}
+            setChecked={setChecked}
+          />
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: "10px",
+            }}
+          >
+            <Button variant="contained" onClick={handleNewWinner}>
+              Select New Winning QR Code
+            </Button>
+            <div style={{ display: "flex", flexDirection: "row", gap: "4px" }}>
+              <TextField
+                type="number"
+                inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+                onChange={(e) => setNumberOfQrCodes(parseInt(e.target.value))}
+              >
+                {numberOfQrCodes}
+              </TextField>
+              <Button
+                variant="contained"
+                onClick={() => handleAddAdditionalQrCode(numberOfQrCodes)}
+                disabled={numberOfQrCodes === 0}
+              >
+                Add Additional QR Codes
+              </Button>
+            </div>
+            <Button
+              variant="contained"
+              onClick={() => handleDeleteSelected(checked)}
+              disabled={checked.length === 0}
+            >
+              Delete Selected QR Codes
+            </Button>
+          </div>
+        </div>
       ) : (
         <div
           style={{
@@ -77,54 +121,26 @@ export const AdminDashboard = () => {
             gap: "10px",
           }}
         >
-          <TextField
-            required={true}
-            id="outlined-controlled"
-            label="Enter Password"
-            value={password}
-            autoComplete="off"
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-              setPassword(event.target.value);
-              errorStatus === true && setErrorStatus(false);
-            }}
-            error={errorStatus}
-            helperText={errorStatus && "Invalid Password."}
-          />
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
+          <div style={{ display: "flex", flexDirection: "row", gap: "10px" }}>
+            <TextField
+              required={true}
+              id="outlined-controlled"
+              label="Enter Password"
+              value={password}
+              autoComplete="off"
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                setPassword(event.target.value);
+                errorStatus === true && setErrorStatus(false);
+              }}
+              error={errorStatus}
+              helperText={errorStatus && "Invalid Password."}
+            />
             <Button
               variant="contained"
               onClick={() => handleClick(password)}
               disabled={errorStatus}
             >
               Submit
-            </Button>
-            <Button variant="contained" onClick={handleNewWinner}>
-              Select New Winner
-            </Button>
-            <TextField
-              type="number"
-              inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
-              onChange={(e) => setNumberOfQrCodes(parseInt(e.target.value))}
-            >
-              {numberOfQrCodes}
-            </TextField>
-            <Button
-              variant="contained"
-              onClick={() => handleAddAdditionalQrCode(numberOfQrCodes)}
-            >
-              Add Additional
-            </Button>
-            <Button
-              variant="contained"
-              onClick={() => handleDeleteSelected(checked)}
-            >
-              Delete Selected
             </Button>
           </div>
         </div>

@@ -118,7 +118,7 @@ export const QrCodeView = ({
           />
         </ListItemAvatar>
         <ListItemText
-          primary={qrCode.id}
+          primary={`id: ${qrCode.id}`}
           secondary={
             <Fragment>
               <Typography
@@ -138,7 +138,7 @@ export const QrCodeView = ({
 
   const handlePdf = () => {
     const doc = new jsPDF("p", "pt", "a4");
-    const element = document.getElementById("hello");
+    const element = document.getElementById("qr-container");
 
     element &&
       doc.html(element, {
@@ -171,14 +171,20 @@ export const QrCodeView = ({
         {qrCodeData &&
           qrCodeData.map((e) => <QrCodeListItem qrCode={e} key={e.id} />)}
       </List>
-      <Button onClick={handleSelectAll}>Select All</Button>
-      <Button variant="contained" onClick={() => handleClick(checked)}>
-        Generate QR Codes
+      <Button variant="contained" onClick={handleSelectAll}>
+        {checked.length > 0 ? "Deselect All" : "Select All"}
+      </Button>
+      <Button
+        variant="contained"
+        onClick={() => handleClick(checked)}
+        disabled={checked.length === 0}
+      >
+        Generate PDF for Selected Items
       </Button>
 
       {qrCodes.length > 0 && (
         <div
-          id="hello"
+          id="qr-container"
           style={{
             display: "flex",
             flexDirection: "column",
