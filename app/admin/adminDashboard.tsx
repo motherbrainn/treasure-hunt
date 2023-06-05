@@ -128,6 +128,7 @@ export const AdminDashboard = () => {
           <div style={{ display: "flex", flexDirection: "row", gap: "10px" }}>
             <TextField
               required={true}
+              type="password"
               id="outlined-controlled"
               label="Enter Password"
               value={password}
@@ -143,6 +144,7 @@ export const AdminDashboard = () => {
               variant="contained"
               onClick={() => handleClick(password)}
               disabled={errorStatus}
+              style={{ height: "56px" }}
             >
               Submit
             </Button>
