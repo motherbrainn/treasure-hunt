@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "../../../lib/prisma";
+export const fetchCache = "force-no-store";
 
 export async function POST(req: NextRequest, res: NextResponse) {
   const { countOfQrCodes } = await req.json();
