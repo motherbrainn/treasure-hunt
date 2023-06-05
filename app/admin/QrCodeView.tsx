@@ -56,7 +56,7 @@ export const QrCodeView = ({
       (async () => setQrCodeData(await fetchQrCodes()))();
       setRefetch(false);
     }
-  }, [refetch]);
+  }, [refetch, setRefetch]);
 
   interface QrCodeListItemInterface {
     qrCode: QrCodeInterface;

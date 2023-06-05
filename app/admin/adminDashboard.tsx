@@ -9,7 +9,6 @@ export const AdminDashboard = () => {
     null
   );
   const [errorStatus, setErrorStatus] = useState(false);
-  console.log("");
 
   async function authenticateUser(password: string): Promise<boolean> {
     const response = await fetch("/api/authenticate", {
