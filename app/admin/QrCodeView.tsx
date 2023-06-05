@@ -16,7 +16,7 @@ import { jsPDF } from "jspdf";
 import { QRCode } from "react-qrcode-logo";
 
 async function fetchQrCodes(): Promise<any> {
-  const response = await fetch("/api/qrCode", { cache: "no-store" }).then(
+  const response = await fetch("/api/qrCode", { cache: "no-cache" }).then(
     (res) => res.json()
   );
   return response;
