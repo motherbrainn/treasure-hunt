@@ -14,7 +14,7 @@ export const AdminDashboard = () => {
     const response = await fetch("/api/authenticate", {
       method: "POST",
       body: JSON.stringify({ submittedPassword: password }),
-      cache: "no-cache",
+      cache: "no-store",
     }).then((res) => res.json());
 
     const {
@@ -29,7 +29,7 @@ export const AdminDashboard = () => {
   };
 
   const handleNewWinner = async () => {
-    const response = await fetch("/api/selectNewWinner", { cache: "no-cache" });
+    const response = await fetch("/api/selectNewWinner", { cache: "no-store" });
     setRefetchQrData(true);
   };
 
@@ -37,7 +37,7 @@ export const AdminDashboard = () => {
     const response = await fetch("/api/createNewQrCode", {
       method: "POST",
       body: JSON.stringify({ countOfQrCodes: count }),
-      cache: "no-cache",
+      cache: "no-store",
     });
     setRefetchQrData(true);
   };
@@ -46,7 +46,7 @@ export const AdminDashboard = () => {
     const response = await fetch("/api/deleteQrCode", {
       method: "POST",
       body: JSON.stringify({ selectedQrCodes: selected }),
-      cache: "no-cache",
+      cache: "no-store",
     });
     setRefetchQrData(true);
   };
