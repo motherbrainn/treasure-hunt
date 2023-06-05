@@ -90,8 +90,12 @@ export const AdminDashboard = () => {
             <div style={{ display: "flex", flexDirection: "row", gap: "4px" }}>
               <TextField
                 type="number"
-                inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
-                onChange={(e) => setNumberOfQrCodes(parseInt(e.target.value))}
+                inputProps={{ inputMode: "numeric", pattern: "[0-9]*", min: 0 }}
+                onChange={(e) =>
+                  setNumberOfQrCodes(
+                    parseInt(e.target.value) > 0 ? parseInt(e.target.value) : 0
+                  )
+                }
               >
                 {numberOfQrCodes}
               </TextField>
