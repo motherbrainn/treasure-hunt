@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-export const fetchCache = "force-no-store";
 
 export async function POST(req: NextRequest, res: NextResponse) {
   const { submittedPassword } = await req.json();

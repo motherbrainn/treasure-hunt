@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "../../../lib/prisma";
-export const fetchCache = "force-no-store";
 
 export async function GET(req: NextRequest, res: NextResponse) {
   //reset winners

@@ -1,5 +1,4 @@
 import prisma from "../../../lib/prisma";
-export const fetchCache = "force-no-store";
 
 interface PagePropsInterface {
   params: {
