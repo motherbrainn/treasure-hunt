@@ -28,7 +28,9 @@ export const AdminDashboard = () => {
   };
 
   const handleNewWinner = async () => {
-    await fetch("/api/selectNewWinner");
+    await fetch("/api/selectNewWinner", {
+      method: "POST",
+    });
     setRefetchQrData(true);
   };
 
