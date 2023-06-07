@@ -3,6 +3,13 @@ import { Button, TextField } from "@mui/material";
 import { useState } from "react";
 import QrCodeView from "./QrCodeView";
 
+export interface QrCodeInterface {
+  id: string;
+  winner: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export const AdminDashboard = () => {
   const [password, setPassword] = useState<string>("");
   const [userAuthenticated, setUserAuthenticated] = useState<null | boolean>(
@@ -48,11 +55,13 @@ export const AdminDashboard = () => {
       body: JSON.stringify({ selectedQrCodes: selected }),
     });
     setRefetchQrData(true);
+    setChecked([]);
   };
 
   const [refetchQrData, setRefetchQrData] = useState(true);
   const [numberOfQrCodes, setNumberOfQrCodes] = useState(0);
   const [checked, setChecked] = useState<string[]>([]);
+  const [qrCodeData, setQrCodeData] = useState<QrCodeInterface[] | []>([]);
 
   return (
     <div
@@ -77,6 +86,8 @@ export const AdminDashboard = () => {
             setRefetch={setRefetchQrData}
             checked={checked}
             setChecked={setChecked}
+            qrCodeData={qrCodeData}
+            setQrCodeData={setQrCodeData}
           />
           <div
             style={{
@@ -86,7 +97,11 @@ export const AdminDashboard = () => {
               gap: "10px",
             }}
           >
-            <Button variant="contained" onClick={handleNewWinner}>
+            <Button
+              variant="contained"
+              onClick={handleNewWinner}
+              disabled={qrCodeData.length === 0}
+            >
               Select New Winning QR Code
             </Button>
             <div style={{ display: "flex", flexDirection: "row", gap: "4px" }}>

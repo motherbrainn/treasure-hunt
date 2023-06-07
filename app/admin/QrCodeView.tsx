@@ -14,6 +14,7 @@ import {
 
 import { jsPDF } from "jspdf";
 import { QRCode } from "react-qrcode-logo";
+import { QrCodeInterface } from "./adminDashboard";
 
 async function fetchQrCodes(): Promise<any> {
   const response = await fetch("/api/qrCode", {
@@ -21,13 +22,6 @@ async function fetchQrCodes(): Promise<any> {
     next: { tags: ["qr-code"] },
   }).then((res) => res.json());
   return response;
-}
-
-interface QrCodeInterface {
-  id: string;
-  winner: boolean;
-  createdAt: string;
-  updatedAt: string;
 }
 
 const vercelUrl = process.env.NEXT_PUBLIC_VERCEL_URL;
@@ -41,6 +35,8 @@ interface QrCodeViewInterface {
   setRefetch: Dispatch<SetStateAction<boolean>>;
   checked: string[];
   setChecked: Dispatch<SetStateAction<string[]>>;
+  qrCodeData: QrCodeInterface[];
+  setQrCodeData: Dispatch<SetStateAction<QrCodeInterface[] | []>>;
 }
 
 export const QrCodeView = ({
@@ -48,8 +44,9 @@ export const QrCodeView = ({
   setRefetch,
   checked,
   setChecked,
+  qrCodeData,
+  setQrCodeData,
 }: QrCodeViewInterface) => {
-  const [qrCodeData, setQrCodeData] = useState<QrCodeInterface[] | []>([]);
   const [qrCodes, setQrCodes] = useState<JSX.Element[]>([]);
 
   useEffect(() => {
@@ -171,10 +168,17 @@ export const QrCodeView = ({
       }}
     >
       <List>
-        {qrCodeData &&
-          qrCodeData.map((e) => <QrCodeListItem qrCode={e} key={e.id} />)}
+        {qrCodeData.length > 0 ? (
+          qrCodeData.map((e) => <QrCodeListItem qrCode={e} key={e.id} />)
+        ) : (
+          <div>No QR Codes to Show</div>
+        )}
       </List>
-      <Button variant="contained" onClick={handleSelectAll}>
+      <Button
+        variant="contained"
+        onClick={handleSelectAll}
+        disabled={qrCodeData.length === 0}
+      >
         {checked.length > 0 ? "Deselect All" : "Select All"}
       </Button>
       <Button
