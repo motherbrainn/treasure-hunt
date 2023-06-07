@@ -14,7 +14,6 @@ export const AdminDashboard = () => {
     const response = await fetch("/api/authenticate", {
       method: "POST",
       body: JSON.stringify({ submittedPassword: password }),
-      cache: "no-store",
     }).then((res) => res.json());
 
     const {
@@ -29,24 +28,22 @@ export const AdminDashboard = () => {
   };
 
   const handleNewWinner = async () => {
-    const response = await fetch("/api/selectNewWinner", { cache: "no-store" });
+    await fetch("/api/selectNewWinner");
     setRefetchQrData(true);
   };
 
   const handleAddAdditionalQrCode = async (count: number) => {
-    const response = await fetch("/api/createNewQrCode", {
+    await fetch("/api/createNewQrCode", {
       method: "POST",
       body: JSON.stringify({ countOfQrCodes: count }),
-      cache: "no-store",
     });
     setRefetchQrData(true);
   };
 
   const handleDeleteSelected = async (selected: string[]) => {
-    const response = await fetch("/api/deleteQrCode", {
+    await fetch("/api/deleteQrCode", {
       method: "POST",
       body: JSON.stringify({ selectedQrCodes: selected }),
-      cache: "no-store",
     });
     setRefetchQrData(true);
   };

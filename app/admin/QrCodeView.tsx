@@ -17,8 +17,8 @@ import { QRCode } from "react-qrcode-logo";
 
 async function fetchQrCodes(): Promise<any> {
   const response = await fetch("/api/qrCode", {
-    // cache: "no-store",
-    next: { tags: ["collection"] },
+    //include tag to break cache when refetching
+    next: { tags: ["get-qr-codes"] },
   }).then((res) => res.json());
   return response;
 }
