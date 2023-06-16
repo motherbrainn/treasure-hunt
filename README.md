@@ -1,3 +1,20 @@
+# Treasure Hunt
+
+Facilitates a scavenger hunt like game where you can print out physical copies of QR codes and post them around town. When the QR codes are scanned it notifies the user if the code is a 'winner'.  
+
+Use the admin board to:
+Generate PDF with QR Codes (for printing)
+Select new winning QR code
+Add additional QR codes
+Delete QR Codes
+
+This project was kind of an excuse to play with Vercel's new App Router which is what it's based around.
+
+I'm also testing out the new vercel postgres db here.
+
+<img width="400" alt="Screenshot 2023-06-16 at 9 11 46 AM" src="https://github.com/motherbrainn/treasure-hunt/assets/37132756/a51331df-08ff-4aa5-b653-f51230a805d1">
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
@@ -12,23 +29,3 @@ yarn dev
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
